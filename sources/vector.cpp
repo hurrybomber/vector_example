@@ -34,11 +34,21 @@ vector_t & vector_t::operator =(vector_t const & other)
 
 bool vector_t::operator ==(vector_t const & other) const
 {
-	return false;
+	bool vector_t::operator ==(vector_t const & other) const {
+    if(size_ != other.size_)
+        return false;
+    for(std::size_t i = 0; i < size_; i++) {
+        if(elements_[i] != other.elements_[i])
+            return false;
+    }
+    return true;
 }
 
 vector_t::~vector_t()
 {
+	size_ = 0;
+	capacity_ = 0;
+	delete[] elements_;
 }
 
 std::size_t vector_t::size() const
