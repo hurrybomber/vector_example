@@ -81,5 +81,5 @@ int vector_t::operator [](std::size_t index) const
 
 bool operator !=(vector_t const & lhs, vector_t const & rhs)
 {
-	return true;
+	return (!(lhs == rhs));
 }
