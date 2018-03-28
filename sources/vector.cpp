@@ -3,17 +3,33 @@
 
 #include "vector.hpp"
 
-vector_t::vector_t()
+vector_t::vector_t()//
 {
+	elements_ = nullptr;
+	size_=0;
+	capacity_ =0;
 }
 
-vector_t::vector_t(vector_t const & other)
+vector_t::vector_t(vector_t const & other)// copy
 {
+	 size_=other.size_;
+    capacity_=other.capacity_;
+    elements_ = new int[capacity_];
+    for (std::size_t i = 0; i < size_; i++)
+        elements_[i]=other.elements_[i];
+
 }
 
 vector_t & vector_t::operator =(vector_t const & other)
 {
-	return *this;
+	if(elements_ != nullptr)
+        delete [] elements_;
+    size_=other.size_;
+    capacity_=other.capacity_;
+    elements_=new int[capacity_];
+    for (std::size_t i = 0; i < size_; i++)
+        elements_[i]=other.elements_[i];
+    return *this;
 }
 
 bool vector_t::operator ==(vector_t const & other) const
