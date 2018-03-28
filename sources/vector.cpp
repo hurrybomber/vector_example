@@ -34,14 +34,10 @@ vector_t & vector_t::operator =(vector_t const & other)
 
 bool vector_t::operator ==(vector_t const & other) const
 {
-	bool vector_t::operator ==(vector_t const & other) const {
-    if(size_ != other.size_)
-        return false;
-    for(std::size_t i = 0; i < size_; i++) {
-        if(elements_[i] != other.elements_[i])
-            return false;
-    }
-    return true;
+	if ((size_ != other.size_)or(capacity_ != other.capacity_)) return 0;
+	for (int i=0; i < size_; i++) 
+	if (other.elements_[i] != elements_[i])  return 0;
+	return 1;
 }
 
 vector_t::~vector_t()
@@ -67,6 +63,15 @@ void vector_t::push_back(int value)
 
 void vector_t::pop_back()
 {
+	if (size_ == 0)
+		return;
+	size_ = size_ - 1;
+	if (size_ * 4 <= capacity_) capacity_ = capacity_ / 2;
+	int* elements_2 = new int[capacity_];
+	for (int i = 0; i < size_; i++)
+		elements_2[i] = elements_[i];
+	delete[] elements_;
+	elements_ = elements_2;
 }
 
 int & vector_t::operator [](std::size_t index)
@@ -81,5 +86,10 @@ int vector_t::operator [](std::size_t index) const
 
 bool operator !=(vector_t const & lhs, vector_t const & rhs)
 {
-	return (!(lhs == rhs));
+	bool b = 1;
+	
+	if (rhs.size() != lhs.size()) return 1;
+	for (int i=0; i < lhs.size(); i++) 
+	if (rhs[i] == lhs[i])  b = 0;
+	return b;
 }
